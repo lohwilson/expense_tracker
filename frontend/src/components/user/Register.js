@@ -37,15 +37,11 @@ export default function Register() {
 
       try {
         const body = JSON.stringify(newUser);
-        const response = await axios.post(
-          "http://localhost:4000/user/register",
-          body,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response = await axios.post("/user/register", body, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         console.log(response.data);
       } catch (err) {
         console.log(err.response.data);
