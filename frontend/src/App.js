@@ -1,12 +1,15 @@
 import "./App.css";
+import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import OnBoarding from "./components/general/OnBoarding";
 import Login from "./components/user/Login";
 import Register from "./components/user/Register";
+import Navbar from "./components/general/Navbar";
 
 function App() {
   return (
     <Router>
+      <Navbar />
       <div>
         <Switch>
           <Route exact path="/" component={OnBoarding} />
