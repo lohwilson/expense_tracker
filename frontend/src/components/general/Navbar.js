@@ -21,6 +21,11 @@ export default function Navbar() {
             <Link to="/register">Register</Link>
           </li>
         </ul>
+        <ul>
+          <li>
+            <Link to="/main">Main</Link>
+          </li>
+        </ul>
       </div>
     </Fragment>
   );

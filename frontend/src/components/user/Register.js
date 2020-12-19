@@ -1,15 +1,8 @@
 import React, { Fragment, useState } from "react";
-import { useForm } from "../hooks/useForm";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-export default function Register() {
-  // const [values, handleChange, handleSubmit] = useForm({
-  //   email: "",
-  //   password: "",
-  //   firstName: "",
-  // });
-
+const Register = () => {
   const [formData, setFormData] = useState({
     username: "",
     firstName: "",
@@ -26,7 +19,7 @@ export default function Register() {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      console.log("passwords do not match");
+      console.log("passwords do not match", "danger");
     } else {
       const newUser = {
         username,
@@ -37,11 +30,15 @@ export default function Register() {
 
       try {
         const body = JSON.stringify(newUser);
-        const response = await axios.post("/user/register", body, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await axios.post(
+          "http://localhost:4000/user/register",
+          body,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         console.log(response.data);
       } catch (err) {
         console.log(err.response.data);
@@ -51,27 +48,6 @@ export default function Register() {
 
   return (
     <Fragment>
-      {/* <h1>Register</h1>
-      <>
-        <input
-          name="username"
-          value={values.username}
-          onChange={handleChange}
-        />
-        <input
-          name="firstName"
-          placeholder="first name"
-          value={values.firstName}
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          value={values.password}
-          onChange={handleChange}
-        />
-        <button onClick={handleSubmit}>Submit</button>
-      </> */}
       <Fragment>
         <h1>Register</h1>
         <form onSubmit={(e) => onSubmit(e)}>
@@ -135,4 +111,6 @@ export default function Register() {
       </Fragment>
     </Fragment>
   );
-}
+};
+
+export default Register;
