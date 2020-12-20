@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 
 export default function Login() {
@@ -12,6 +12,7 @@ export default function Login() {
   });
 
   const { username, password } = formData;
+  const history = useHistory();
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -35,6 +36,7 @@ export default function Login() {
         }
       );
       console.log(response.data);
+      history.push("/main");
     } catch (err) {
       console.log(err.response.data);
     }

@@ -1,4 +1,3 @@
-const { findByIdAndUpdate } = require("../models/Expense");
 const Expense = require("../models/Expense");
 
 module.exports = {

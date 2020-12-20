@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 
 const Register = () => {
@@ -12,6 +12,7 @@ const Register = () => {
   });
 
   const { username, firstName, lastName, password, password2 } = formData;
+  const history = useHistory();
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -19,7 +20,7 @@ const Register = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      console.log("passwords do not match", "danger");
+      console.log("passwords do not match");
     } else {
       const newUser = {
         username,
@@ -40,6 +41,14 @@ const Register = () => {
           }
         );
         console.log(response.data);
+        await setFormData({
+          username: "",
+          firstName: "",
+          lastName: "",
+          password: "",
+          password2: "",
+        });
+        history.push("/login");
       } catch (err) {
         console.log(err.response.data);
       }

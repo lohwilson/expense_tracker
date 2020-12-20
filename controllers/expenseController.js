@@ -1,4 +1,3 @@
-const Expense = require("../models/Expense");
 const expenseRepository = require("../repositories/expenseRepository");
 
 module.exports = {
