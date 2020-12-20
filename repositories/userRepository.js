@@ -2,6 +2,10 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 
 module.exports = {
+  async findUser(id) {
+    let user = await User.findById({ _id: id });
+    console.log(user);
+  },
   async checkExistingUser(username) {
     let user = await User.findOne({ username });
     return user;

@@ -26,6 +26,7 @@ connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
 });
 
+app.use("/auth", require("./routes/auth"));
 app.use("/expense", require("./routes/expense"));
 app.use("/user", require("./routes/user"));
 

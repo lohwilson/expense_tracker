@@ -2,7 +2,10 @@ const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/userController");
 
-router.get("/", (req, res) => res.send("get user"));
+// @route   GET user/:id
+// @desc    Get user
+// @access  Public
+router.get("/:id", userController.getUser);
 
 // @route   POST user/register
 // @desc    Register user

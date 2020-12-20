@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import OnBoarding from "./components/general/OnBoarding";
 import Login from "./components/user/Login";
@@ -9,11 +9,27 @@ import Main from "./components/general/MainPage";
 import { UserContext } from "./components/user/UserContext";
 
 function App() {
+  const [user, setUser] = useState({
+    token: undefined,
+    user: undefined,
+  });
+
+  useEffect(() => {
+    const checkLoggedIn = async () => {
+      let token = localStorage.getItem("jwt");
+      if (token === null) {
+        localStorage.setItem("jwt", "");
+        token = "";
+      }
+    };
+    checkLoggedIn();
+  }, []);
+
   return (
     <Router>
       <Navbar />
       <div>
-        <UserContext.Provider value="hello from context">
+        <UserContext.Provider value={{ user, setUser }}>
           <Switch>
             <Route exact path="/" component={OnBoarding} />
             <Route exact path="/login" component={Login} />

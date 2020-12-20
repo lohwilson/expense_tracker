@@ -2,6 +2,14 @@ const jwt = require("jsonwebtoken");
 const userRepository = require("../repositories/userRepository");
 
 module.exports = {
+  async getUser(req, res) {
+    try {
+      const user = await userRepository.findUser(req.params.id);
+      return res.status(200).json({ user });
+    } catch (err) {
+      console.log(err);
+    }
+  },
   async register(req, res) {
     const { username, firstName, lastName, password } = req.body;
 
@@ -52,7 +60,7 @@ module.exports = {
         },
         (err, token) => {
           if (err) throw err;
-          res.json({ token });
+          res.json({ token, user });
         }
       );
     } catch (err) {

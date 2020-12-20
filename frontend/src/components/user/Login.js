@@ -1,8 +1,10 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
+import { UserContext } from "../user/UserContext";
 
 export default function Login() {
+  // const [user, setUser] = useContext(UserContext);
   const [formData, setFormData] = useState({
     username: "",
     firstName: "",
@@ -35,7 +37,8 @@ export default function Login() {
           },
         }
       );
-      console.log(response.data);
+      console.log(response.data.token);
+      localStorage.setItem("jwt", response.data.token);
       history.push("/main");
     } catch (err) {
       console.log(err.response.data);
