@@ -33,15 +33,9 @@ module.exports = {
     if (!username || !password) {
       return res.status(400).json({ error: "Please enter all fields" });
     }
-    let user;
-    const checkCredentials = await userRepository.checkUserCredentials(
-      username,
-      password
-    );
-    if (!checkCredentials) {
+    const user = await userRepository.checkUserCredentials(username, password);
+    if (!user) {
       return res.status(400).json({ errors: [{ msg: "Invalid credentials" }] });
-    } else {
-      user = checkCredentials;
     }
 
     try {
@@ -50,7 +44,6 @@ module.exports = {
           id: user.id,
         },
       };
-
       jwt.sign(
         payload,
         process.env.JWT_SECRET,

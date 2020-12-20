@@ -25,6 +25,6 @@ router.put("/update/:id", expenseController.updateOne);
 // @route    GET /expense/:id
 // @desc     Find an expense
 // @access   Private
-router.post("/:id", expenseController.findOne);
+router.get("/:id", expenseController.findOne);
 
 module.exports = router;

@@ -15,7 +15,7 @@ module.exports = {
       const expense = await expenseRepository.createOneExpense(req.body);
       await res.json({ expense: expense });
     } catch (err) {
-      console.log(err);
+      res.status(400).json("Error" + err);
     }
   },
   async deleteOne(req, res) {
@@ -24,27 +24,25 @@ module.exports = {
       await expenseRepository.deleteOneExpense(id);
       res.status(200).json({ msg: "removed " + id });
     } catch (err) {
-      console.log(err);
+      res.status(400).json("Error" + err);
     }
   },
   async updateOne(req, res) {
-    const { date, type, description, amount, currency, image } = req.body;
+    const id = req.params.id;
+    const body = req.body;
     try {
-      const expense = {
-        date,
-        type,
-        description,
-        amount,
-        currency,
-        image,
-      };
-      await expenseRepository.updateOneExpense(req.params.name, expense);
-      return console.log(expense);
+      const result = await expenseRepository.updateOneExpense(id, body);
+      res.status(200).json({ result });
     } catch (err) {
-      console.log(err);
+      res.status(400).json("Error" + err);
     }
   },
   async findOne(req, res) {
-    res.send("findOne");
+    try {
+      const result = await expenseRepository.findOneExpense(req.params.id);
+      res.status(200).json({ expense: result });
+    } catch (err) {
+      res.status(404).json("Error" + err);
+    }
   },
 };

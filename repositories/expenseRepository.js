@@ -1,3 +1,4 @@
+const { findByIdAndUpdate } = require("../models/Expense");
 const Expense = require("../models/Expense");
 
 module.exports = {
@@ -5,11 +6,11 @@ module.exports = {
     try {
       return await Expense.find();
     } catch (err) {
-      res.status(400).json("Error" + err);
+      return err;
     }
   },
-  async createOneExpense(requestBody) {
-    const { date, type, description, amount, currency, image } = requestBody;
+  async createOneExpense(body) {
+    const { date, type, description, amount, currency, image } = body;
 
     const expense = new Expense({
       date,
@@ -35,8 +36,30 @@ module.exports = {
       console.log(err);
     }
   },
-  async updateOneExpense(name, expense) {
-    console.log(name, expense);
+  async updateOneExpense(id, body) {
+    const { date, type, description, amount, currency, image } = body;
+
+    try {
+      const response = await Expense.findByIdAndUpdate(
+        { _id: id },
+        {
+          $set: {
+            date,
+            type,
+            description,
+            amount,
+            currency,
+            image,
+          },
+        }
+      );
+      return response;
+    } catch (err) {
+      return err;
+    }
   },
-  async findOneExpense() {},
+  async findOneExpense(id) {
+    const response = await Expense.findOne({ _id: id });
+    return response;
+  },
 };
